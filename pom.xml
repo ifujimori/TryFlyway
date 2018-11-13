@@ -23,7 +23,10 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>5.2.1</version>
 				<configuration>
+					<!-- 
 					<url>jdbc:oracle:thin:@localhost:1521/ORCLPDB1</url>
+					-->
+					<url>jdbc:oracle:thin:@129.158.78.249:1521/PDB1.588937178.oraclecloud.internal</url>
 					<user>FLYWAY</user>
 					<password>FLYWAY</password>
 				</configuration>
