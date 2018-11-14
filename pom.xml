@@ -23,21 +23,55 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>5.2.1</version>
 				<configuration>
-					<!-- 
-					<url>jdbc:oracle:thin:@localhost:1521/ORCLPDB1</url>
-					-->
-					<url>jdbc:oracle:thin:@129.158.78.249:1521/PDB1.588937178.oraclecloud.internal</url>
+					<url>${flyway.url}</url>
 					<user>FLYWAY</user>
 					<password>FLYWAY</password>
 				</configuration>
 				<dependencies>
-<dependency>
-	<groupId>com.oracle.jdbc</groupId>
-	<artifactId>ojdbc8</artifactId>
-	<version>12.2.0.1</version>
-</dependency>
+					<dependency>
+						<groupId>com.oracle.jdbc</groupId>
+						<artifactId>ojdbc8</artifactId>
+						<version>12.2.0.1</version>
+					</dependency>
 				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
+
+	<!-- profile定義 -->
+	<profiles>
+		<!-- ローカル開発環境用 -->
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<!-- @後のIPアドレスは自身のパブリックIPを指定すること -->
+				<flyway.url>jdbc:oracle:thin:@129.158.76.141:1521/PDB1.588937178.oraclecloud.internal</flyway.url>
+			</properties>
+		</profile>
+
+		<!-- 開発環境用 -->
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<flyway.url>jdbc:oracle:thin:@129.158.76.141:1521/PDB1.588937178.oraclecloud.internal</flyway.url>
+			</properties>
+		</profile>
+
+		<!-- 動作確認用 -->
+		<profile>
+			<id>fujimori</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<flyway.url>jdbc:oracle:thin:@129.158.78.249:1521/PDB1.588937178.oraclecloud.internal</flyway.url>
+			</properties>
+		</profile>
+	</profiles>
 </project>
